@@ -2,8 +2,6 @@
 
 namespace DvK\VatRates;
 
-use GuzzleHttp\Client;
-
 class VatRates {
 
     /**
@@ -12,22 +10,15 @@ class VatRates {
     const URL = 'https://jsonvat.com/';
 
     /**
-     * @var Client
-     */
-    private $client;
-
-    /**
      * VatValidator constructor.
-     *
-     * @param Client $client
      */
-    public function __construct( Client $client ) {
-        $this->client = $client;
+    public function __construct(  ) {
+
     }
 
     private function fetch() {
-        $response = $this->client->request( 'GET', self::URL );
-        $data = json_decode( $response->getBody() );
+        $response = file_get_contents( self::URL );
+        $data = json_decode( $response );
         var_dump( $data );
     }
 
