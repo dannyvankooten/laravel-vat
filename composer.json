@@ -1,0 +1,32 @@
+{
+  "name": "dannyvankooten/vat-rates",
+  "description": "VAT rates for Laravel",
+  "keywords": ["laravel", "vat"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Danny van Kooten",
+      "email": "hi@dvk.co"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^^5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DvK\\VatRates\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DvK\\Tests\\VatRates\\": "tests/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "prefer-stable": true
+}
