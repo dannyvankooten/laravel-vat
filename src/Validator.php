@@ -5,7 +5,11 @@ use SoapClient;
 use Exception;
 use SoapFault;
 
-
+/**
+ * Class Validator
+ *
+ * @package DvK\Laravel\Vat
+ */
 class Validator {
 
     /**
@@ -77,10 +81,13 @@ class Validator {
         if( ! $this->isEuCountry( $countryCode ) ) {
             return false;
         }
+
         // check vat number format (loose)
         if( ! preg_match('/^[0-9A-Z\-]{2,14}$/', $vatNumber) ) {
             return false;
         }
+
+        // call VIES VAT Soap API
         try {
             $response = $this->client->checkVat(
                 array(
@@ -92,7 +99,7 @@ class Validator {
             throw new Exception( 'VAT check is currently unavailable.', $e->getCode() );
         }
 
-        return $response->valid;
+        return !! $response->valid;
     }
 
 
