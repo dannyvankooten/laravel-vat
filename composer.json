@@ -1,6 +1,6 @@
 {
-  "name": "dannyvankooten/vat-rates",
-  "description": "VAT rates for Laravel",
+  "name": "dannyvankooten/laravel-vat",
+  "description": "VAT library for Laravel",
   "keywords": ["laravel", "vat"],
   "license": "MIT",
   "authors": [
