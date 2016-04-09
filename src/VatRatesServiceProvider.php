@@ -5,6 +5,7 @@ namespace DvK\VatRates;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
+
 class VatRatesServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +26,9 @@ class VatRatesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('vatrates', function (Container $app) {
-            return new VatRates();
+            $defaultCacheDriver = $app['cache']->getDefaultDriver();
+            $cacheDriver = $app['cache']->driver( $defaultCacheDriver );
+            return new VatRates( $cacheDriver );
         });
     }
 
