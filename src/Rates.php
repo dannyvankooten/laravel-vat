@@ -1,11 +1,11 @@
 <?php
 
-namespace DvK\VatRates;
+namespace DvK\Laravel\Vat;
 
 use Exception;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
-class VatRates
+class Rates
 {
 
     /**

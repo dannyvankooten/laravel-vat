@@ -1,12 +1,11 @@
 <?php
 
-namespace DvK\VatRates;
+namespace DvK\Laravel\Vat;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
-
-class VatRatesServiceProvider extends ServiceProvider
+class VatServiceProvider extends ServiceProvider
 {
     /**
      * Boot the service provider.
@@ -25,10 +24,14 @@ class VatRatesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('vatrates', function (Container $app) {
+        $this->app->singleton('vat-validator', function (Container $app) {
+           return new Validator();
+        });
+
+        $this->app->singleton('vat-rates', function (Container $app) {
             $defaultCacheDriver = $app['cache']->getDefaultDriver();
             $cacheDriver = $app['cache']->driver( $defaultCacheDriver );
-            return new VatRates( $cacheDriver );
+            return new Rates( $cacheDriver );
         });
     }
 
@@ -41,7 +44,8 @@ class VatRatesServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'vatrates'
+            'vat-rates',
+            'vat-validator',
         ];
     }
 }

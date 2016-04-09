@@ -17,12 +17,12 @@
   },
   "autoload": {
     "psr-4": {
-      "DvK\\VatRates\\": "src/"
+      "DvK\\Laravel\\Vat\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "DvK\\Tests\\VatRates\\": "tests/"
+      "DvK\\Tests\\Laravel\\Vat\\": "tests/"
     }
   },
   "config": {
