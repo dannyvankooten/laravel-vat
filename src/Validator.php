@@ -60,6 +60,8 @@ class Validator {
      * @throws Exception
      */
     public function check( $vatNumber, $countryCode = ''  ) {
+        $vatNumber = strtoupper( $vatNumber );
+        $countryCode = strtoupper( $countryCode );
 
         // if country code is omitted, use first two chars of vat number
         if( empty( $countryCode ) ) {
