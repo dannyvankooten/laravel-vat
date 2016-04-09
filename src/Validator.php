@@ -73,6 +73,10 @@ class Validator {
             $vatNumber = substr( $vatNumber, 2 );
         }
 
+        // check if country is in EU, bail early otherwise.
+        if( ! $this->isEuCountry( $countryCode ) ) {
+            return false;
+        }
         try {
             $response = $this->client->checkVat(
                 array(
