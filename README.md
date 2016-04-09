@@ -40,9 +40,11 @@ Rates::country( 'NL', 'reduced' ); // 6
 Rates::all(); // array in country code => rates format
 
 Validator::isEuCountry('NL'); // true
-Validator::check('NL50123'); // false
-Validator::check('NL203458239B01'); // true (if this were really a valid VAT #)
 
+Validator::validate('NL50123'); // false
+Validator::validateFormat('NL203458239B01'); // true (checks just format)
+Validator::validate('NL203458239B01'); // false (checks format + existence)
+Validator::validate('NL203458239B01', 'GB'); // false (checks format + existence + country match)
 ```
 
 If you'd prefer to use dependency injection, you can easily inject the class like this.
