@@ -12,6 +12,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         // TODO
     }
 
+    public function test_isEuCountry() {
+        $validator = new Validator();
+        self::assertFalse( $validator->isEuCountry( 'US' ) );
+        self::assertTrue( $validator->isEuCountry( 'NL' ) );
+    }
+
 }
 
 

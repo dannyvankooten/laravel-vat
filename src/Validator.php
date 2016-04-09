@@ -19,6 +19,16 @@ class Validator {
     private $client;
 
     /**
+     * All valid country codes.
+     *
+     * @var array
+     */
+    private static $validCountries = array(
+        'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB',
+        'EL', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT',
+        'RO', 'SE', 'SI', 'SK'
+    );
+    /**
      * VatValidator constructor.
      *
      * @param SoapClient $client        (optional)
@@ -30,6 +40,16 @@ class Validator {
         if( ! $this->client ) {
             $this->client = new SoapClient( self::URL, [ 'connection_timeout' => 15 ] );
         }
+    }
+
+    /**
+     * @param string $country
+     *
+     * @return bool
+     */
+    public function isEuCountry( $country ) {
+        $country = strtoupper( $country );
+        return in_array( $country, self::$validCountries );
     }
 
     /**
