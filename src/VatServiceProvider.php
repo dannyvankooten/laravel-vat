@@ -30,11 +30,11 @@ class VatServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('vat-validator', function (Container $app) {
+        $this->app->singleton( Validator::class, function (Container $app) {
            return new Validator();
         });
 
-        $this->app->singleton('vat-rates', function (Container $app) {
+        $this->app->singleton( Rates::class, function (Container $app) {
             $defaultCacheDriver = $app['cache']->getDefaultDriver();
             $cacheDriver = $app['cache']->driver( $defaultCacheDriver );
             return new Rates( $cacheDriver );
@@ -50,8 +50,8 @@ class VatServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'vat-rates',
-            'vat-validator',
+            'DvK\Laravel\Vat\Validator',
+            'DvK\Laravel\Vat\Rates',
         ];
     }
 }
