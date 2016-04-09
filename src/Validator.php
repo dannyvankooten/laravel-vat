@@ -77,6 +77,10 @@ class Validator {
         if( ! $this->isEuCountry( $countryCode ) ) {
             return false;
         }
+        // check vat number format (loose)
+        if( ! preg_match('/^[0-9A-Z\-]{2,14}$/', $vatNumber) ) {
+            return false;
+        }
         try {
             $response = $this->client->checkVat(
                 array(
