@@ -4,7 +4,7 @@ namespace DvK\Laravel\Vat;
 use SoapClient;
 use Exception;
 use SoapFault;
-use StdClass;
+
 
 class Validator {
 
@@ -19,25 +19,17 @@ class Validator {
     private $client;
 
     /**
-     * @var array
-     */
-    private $config = array(
-        'connection_timeout' => 15
-    );
-
-    /**
-     * @var stdClass
-     */
-    private $lastResponse;
-
-    /**
      * VatValidator constructor.
      *
-     * @param array $config
+     * @param SoapClient $client        (optional)
      */
-    public function __construct( $config = array() ) {
-        $this->config = array_merge( $this->config, $config );
-        $this->client = new SoapClient( self::URL, array( $this->config ) );
+    public function __construct( $client = null ) {
+        $this->client = $client;
+
+        // use SoapClient by default
+        if( ! $this->client ) {
+            $this->client = new SoapClient( self::URL, [ 'connection_timeout' => 15 ] );
+        }
     }
 
     /**
@@ -67,18 +59,10 @@ class Validator {
                 )
             );
         } catch( SoapFault $e ) {
-            throw new Exception( 'VAT check is currently unavailable.', 500 );
+            throw new Exception( 'VAT check is currently unavailable.', $e->getCode() );
         }
 
-        $this->lastResponse = $response;
         return $response->valid;
-    }
-
-    /**
-     * @return stdClass
-     */
-    public function getLastResponse() {
-        return $this->lastResponse;
     }
 
 
