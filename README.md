@@ -1,15 +1,17 @@
 Laravel VAT
 ================
 
-Laravel VAT is a small & lightweight Laravel library to grab VAT rates for any EU country and/or to validate VAT numbers.
+Laravel VAT is a simple Laravel library which helps you in dealing with European VAT rules. It helps you...
 
-This uses jsonvat.com to obtain its data for the VAT rates. Full details can be seen [here](https://github.com/adamcooke/vat-rates).
+- Grab (current) VAT rates for any European member state
+- Validate VAT numbers
 
-For VAT number validation, this uses the [VIES VAT number validation](http://ec.europa.eu/taxation_customs/vies/) , which requires SOAP.
+The library uses jsonvat.com to obtain its data for the VAT rates. Full details can be seen [here](https://github.com/adamcooke/vat-rates).
+For VAT number validation, this uses the [VIES VAT number validation](http://ec.europa.eu/taxation_customs/vies/).
 
 ## Installation
 
-Either [PHP](https://php.net) 5.5+ or [HHVM](http://hhvm.com) 3.6+ are required.
+Either [PHP](https://php.net) 5.5+ or [HHVM](http://hhvm.com) 3.6+ are required. For VAT number validation, the PHP SOAP extension is required as well.
 
 To get the latest version of Laravel VAT, simply require the project using [Composer](https://getcomposer.org):
 
@@ -21,21 +23,21 @@ Once Laravel VAT is installed, you need to register the service provider. Open u
 
 * `'DvK\Laravel\Vat\VatServiceProvider'`
 
-You can register the VatRates facade in the `aliases` key of your `config/app.php` file if you like.
+You can register facades in the `aliases` key of your `config/app.php` file if you like.
 
 * `'VatRates' => 'DvK\Laravel\Vat\Facades\Rates'`
 * `'VatValidator' => 'DvK\Laravel\Vat\Facades\Validator'`
 
 ## Usage
 
-If you registered the facade then using instance of the classs is as easy as this.
+If you registered the facades then using an instance of the classes is as easy as this:
 
 ```php
 use DvK\Laravel\Vat\Facades\Rates;
 
 Rates::country( 'NL' ); // 21
 Rates::country( 'NL', 'reduced' ); // 6
-Rates:all(); // array in country code => rates format
+Rates::all(); // array in country code => rates format
 
 Validator::isEuCountry('NL'); // true
 Validator::check('NL50123'); // false
