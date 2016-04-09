@@ -28,13 +28,19 @@ You can register the VatRates facade in the `aliases` key of your `config/app.ph
 
 ## Usage
 
-If you registered the facade then using an instance of the class is as easy as this.
+If you registered the facade then using instance of the classs is as easy as this.
 
 ```php
 use DvK\Laravel\Vat\Facades\Rates;
 
 Rates::country( 'NL' ); // 21
 Rates::country( 'NL', 'reduced' ); // 6
+Rates:all(); // array in country code => rates format
+
+Validator::isEuCountry('NL'); // true
+Validator::check('NL50123'); // false
+Validator::check('NL203458239B01'); // true (if this were really a valid VAT #)
+
 ```
 
 If you'd prefer to use dependency injection, you can easily inject the class like this.
