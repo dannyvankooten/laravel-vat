@@ -4,6 +4,7 @@ namespace DvK\Laravel\Vat;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator as RequestValidator;
 
 class VatServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,12 @@ class VatServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        RequestValidator::extend('vat_number', function($attribute, $value, $parameters, $validator ) {
+            $vatValidator = new Validator();
+            $data = $validator->getData();
+            $country = isset( $data['country'] ) ? $data['country'] : '';
+            return $vatValidator->check( $value, $country );
+        });
     }
 
     /**
