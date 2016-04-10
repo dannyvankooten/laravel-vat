@@ -16,10 +16,23 @@ use PHPUnit_Framework_TestCase;
 class ValidatorTest extends PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @covers Validator::isEuCountry
+     */
     public function test_isEuCountry() {
         $validator = new Validator();
-        self::assertFalse( $validator->isEuCountry( 'US' ) );
-        self::assertTrue( $validator->isEuCountry( 'NL' ) );
+
+        $invalid = [ 'US', '', 'NE', 'JP', 'RU' ];
+        foreach( $invalid as $country ) {
+            self::assertFalse( $validator->isEuCountry( $country ) );
+        }
+
+        $valid = [ 'NL', 'nl', 'GB', 'UK', 'GR', 'EL', 'BE' ];
+        foreach( $valid as $country ) {
+            self::assertTrue( $validator->isEuCountry( $country ) );
+        }
+    }
+
     /**
      * @covers Validator::validateFormat
      */
