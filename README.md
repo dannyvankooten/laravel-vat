@@ -56,7 +56,7 @@ Validator::validate('NL203458239B01', 'GB'); // false (checks format + existence
 Countries::inEurope('NL'); // true
 Countries::name('NL') // Netherlands
 Countries::all(); // array of country codes + names
-Countries::europe(); array of EU country codes + names
+Countries::europe(); // array of EU country codes + names
 Countries::ip('8.8.8.8'); // US
 ```
 
