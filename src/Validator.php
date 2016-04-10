@@ -30,7 +30,7 @@ class Validator {
      */
     protected static $patterns = array(
         'AT' => 'U[A-Z\d]{8}',
-        'BE' => '0\d{9}',
+        'BE' => '(0\d{9}|\d{10})',
         'BG' => '\d{9,10}',
         'CY' => '\d{8}[A-Z]',
         'CZ' => '\d{8,10}',
