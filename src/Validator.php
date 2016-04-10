@@ -1,26 +1,12 @@
 <?php
 namespace DvK\Laravel\Vat;
 
-use SoapClient;
-use Exception;
-use SoapFault;
-
 /**
  * Class Validator
  *
  * @package DvK\Laravel\Vat
  */
 class Validator {
-
-    /**
-     * @const string
-     */
-    const URL = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
-
-    /**
-     * @var SoapClient
-     */
-    protected $client;
 
     /**
      * Regular expression patterns per country code
@@ -62,14 +48,13 @@ class Validator {
     /**
      * VatValidator constructor.
      *
-     * @param SoapClient $client        (optional)
+     * @param Vies\Client $client        (optional)
      */
-    public function __construct( $client = null ) {
+    public function __construct( Vies\Client $client = null ) {
         $this->client = $client;
 
-        // use SoapClient by default
         if( ! $this->client ) {
-            $this->client = new SoapClient( self::URL, [ 'connection_timeout' => 15 ] );
+            $this->client = new Vies\Client();
         }
     }
 
@@ -93,30 +78,18 @@ class Validator {
     }
 
     /**
-     * @throws Exception
      *
      * @param string $vatNumber
      *
      * @return boolean
+     *
+     * @throws Vies\ViesException
      */
     public function validateExistence($vatNumber) {
         $vatNumber = strtoupper( $vatNumber );
         $country = substr( $vatNumber, 0, 2 );
         $number = substr( $vatNumber, 2 );
-
-        // call VIES VAT Soap API
-        try {
-            $response = $this->client->checkVat(
-                array(
-                    'countryCode' => $country,
-                    'vatNumber' => $number
-                )
-            );
-        } catch( SoapFault $e ) {
-            throw new Exception( 'VAT check is currently unavailable.', $e->getCode() );
-        }
-
-        return (bool) $response->valid;
+        return $this->client->checkVat($country, $number);
     }
 
     /**

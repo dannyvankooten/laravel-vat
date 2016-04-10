@@ -351,9 +351,9 @@ class Countries {
     public function ip($ip) {
         $response = file_get_contents('http://ip2c.org/' . $ip);
 
-        if(!empty( $response)) {
+        if(!empty($response)) {
             $parts = explode( ';', $response );
-            return $parts[1];
+            return $parts[1] === 'ZZ' ? '' : $parts[1];
         }
 
         return '';

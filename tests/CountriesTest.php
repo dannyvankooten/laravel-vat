@@ -13,12 +13,17 @@ use PHPUnit_Framework_TestCase;
  */
 class CountriesTest extends PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @covers Countries::name
+     */
     public function test_name() {
         $countries = new Countries();
         self::assertEquals( 'United States', $countries->name('US'));
     }
 
+    /**
+     * @covers Countries::inEurope
+     */
     public function test_inEurope() {
         $countries = new Countries();
 

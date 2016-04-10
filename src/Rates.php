@@ -2,39 +2,44 @@
 
 namespace DvK\Laravel\Vat;
 
+use DvK\Laravel\Vat\VatClients\JsonVatClient;
+use DvK\Laravel\Vat\VatClients\VatClient;
 use Exception;
 use Illuminate\Contracts\Cache\Repository as Cache;
+
 
 class Rates
 {
 
     /**
-     * @const string
-     */
-    const URL = 'https://jsonvat.com/';
-
-    /**
      * @var array
      */
-    private $map = array();
+    protected $map = array();
 
     /**
      * @var Cache
      */
-    private $cache;
+    protected $cache;
+
+    /**
+     * @var VatClients\VatClient
+     */
+    protected $client;
 
     /**
      * VatValidator constructor.
      *
-     * @param Cache $cache
+     * @param Cache $cache          (optional)
+     * @param VatClient $client     (optional)
      */
-    public function __construct(Cache $cache = null)
+    public function __construct($cache = null, VatClient $client = null)
     {
         $this->cache = $cache;
+        $this->client = $client;
         $this->map = $this->load();
     }
 
-    private function load()
+    protected function load()
     {
         // load from cache
         if ($this->cache) {
@@ -59,24 +64,13 @@ class Rates
      *
      * @throws Exception
      */
-    private function fetch()
+    protected function fetch()
     {
-        $url = self::URL;
-
-        // fetch data
-        $response = file_get_contents($url);
-        if( empty( $response ) ) {
-            throw new Exception( "Error fetching rates from {$url}.");
-        }
-        $data = json_decode($response);
-
-        // build map with country codes => rates
-        $map = array();
-        foreach ($data->rates as $rate) {
-            $map[$rate->country_code] = $rate->periods[0]->rates;
+        if( ! $this->client ) {
+            $this->client = new JsonVatClient();
         }
 
-        return $map;
+        return $this->client->fetch();
     }
 
     /**
@@ -119,7 +113,7 @@ class Rates
      * @param string $country
      * @return string
      */
-    private function getCountryCode($country)
+    protected function getCountryCode($country)
     {
         if ($country == 'UK') {
             $country = 'GB';

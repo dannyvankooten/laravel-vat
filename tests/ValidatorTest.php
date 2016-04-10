@@ -3,6 +3,7 @@
 namespace DvK\Tests\Laravel\Vat;
 
 use DvK\Laravel\Vat\Validator;
+use DvK\Laravel\Vat\Vies;
 
 use PHPUnit_Framework_TestCase;
 
@@ -93,6 +94,24 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         foreach( $invalid as $format ) {
             self::assertFalse( $validator->validateFormat( $format ), "{$format} passed validation, but shouldn't." );
         }
+    }
+
+    /**
+     * @covers Validator::validateExistence
+     */
+    public function test_validateExistence() {
+        $mock = self::getMockBuilder(Vies\Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mock
+            ->expects(self::once())
+            ->method('checkVat')
+            ->with('NL','123456789')
+            ->will(self::returnValue(true));
+
+        $validator = new Validator( $mock );
+        self::assertTrue( $validator->validateExistence('NL123456789') );
     }
 
 }
