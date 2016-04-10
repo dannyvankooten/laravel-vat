@@ -92,6 +92,7 @@ class Validator {
      * @return boolean
      */
     public function validateFormat( $vatNumber ) {
+        $vatNumber = strtoupper( $vatNumber );
         $country = substr( $vatNumber, 0, 2 );
         $number = substr( $vatNumber, 2 );
 
@@ -99,7 +100,7 @@ class Validator {
             return false;
         }
 
-        return preg_match( '/' . self::$patterns[$country] . '$/', $number );
+        return preg_match( '/' . self::$patterns[$country] . '$/', $number ) > 0;
     }
 
     /**
