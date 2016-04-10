@@ -16,7 +16,7 @@ For VAT number validation, this uses the [VIES VAT number validation](http://ec.
 
 ## Installation
 
-Either [PHP](https://php.net) 5.6+ or [HHVM](http://hhvm.com) 3.6+ are required. For VAT number validation, the PHP SOAP extension is required as well.
+[PHP](https://php.net) 5.6+ is required. For VAT number existence checking, the PHP SOAP extension is required as well.
 
 To get the latest version of Laravel VAT, simply require the project using [Composer](https://getcomposer.org):
 
@@ -49,14 +49,14 @@ Rates::country( 'NL', 'reduced' ); // 6
 Rates::all(); // array in country code => rates format
 
 Validator::validate('NL50123'); // false
-Validator::validateFormat('NL203458239B01'); // true (checks just format)
+Validator::validateFormat('NL203458239B01'); // true (checks format)
+Validator::validateExistence('NL203458239B01') // false (checks existence)
 Validator::validate('NL203458239B01'); // false (checks format + existence)
-Validator::validate('NL203458239B01', 'GB'); // false (checks format + existence + country match)
 
-Countries::inEurope('NL'); // true
-Countries::name('NL') // Netherlands
 Countries::all(); // array of country codes + names
+Countries::name('NL') // Netherlands
 Countries::europe(); // array of EU country codes + names
+Countries::inEurope('NL'); // true
 Countries::ip('8.8.8.8'); // US
 ```
 
