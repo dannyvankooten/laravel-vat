@@ -34,17 +34,18 @@ If you registered the facades then using an instance of the classes is as easy a
 
 ```php
 use DvK\Laravel\Vat\Facades\Rates;
+use DvK\Laravel\Vat\Facades\Validator;
 
 Rates::country( 'NL' ); // 21
 Rates::country( 'NL', 'reduced' ); // 6
 Rates::all(); // array in country code => rates format
 
-Validator::isEuCountry('NL'); // true
-
 Validator::validate('NL50123'); // false
 Validator::validateFormat('NL203458239B01'); // true (checks just format)
 Validator::validate('NL203458239B01'); // false (checks format + existence)
 Validator::validate('NL203458239B01', 'GB'); // false (checks format + existence + country match)
+
+Validator::isEuCountry('NL'); // true
 ```
 
 If you'd prefer to use dependency injection, you can easily inject the class like this.
