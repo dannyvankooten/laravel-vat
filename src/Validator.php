@@ -74,17 +74,6 @@ class Validator {
     }
 
     /**
-     * @param string $country
-     *
-     * @return bool
-     */
-    public function isEuCountry( $country ) {
-        $country = strtoupper( $country );
-        $country = $this->fixCountryCode($country);
-        return isset( self::$patterns[$country] );
-    }
-
-    /**
      * Validate a VAT number format. This does not check whether the VAT number was really issued.
      *
      * @param string $vatNumber
@@ -104,69 +93,41 @@ class Validator {
     }
 
     /**
-     * Validates a VAT number using format + existence check.
-     *
-     * Pass a country code as the second parameter if you want to make sure a number is valid for the given ISO-3166-1-alpha2 country.
+     * @throws Exception
      *
      * @param string $vatNumber
-     * @param string $countryCode
-     * @return boolean
      *
-     * @throws Exception
+     * @return boolean
      */
-    public function validate( $vatNumber, $countryCode = ''  ) {
+    public function validateExistence($vatNumber) {
         $vatNumber = strtoupper( $vatNumber );
-        $countryCode = strtoupper( $countryCode );
-
-        // if country code is omitted, use first two chars of vat number
-        if( empty( $countryCode ) ) {
-            $countryCode = substr( $vatNumber, 0, 2 );
-        } else {
-            // otherwise, transform country code to ISO-3166-1-alpha2
-            $countryCode = $this->fixCountryCode( $countryCode );
-        }
-
-        // strip first two characters of VAT number if it matches the country code
-        if( substr( $vatNumber, 0, 2 ) === $countryCode ) {
-            $vatNumber = substr( $vatNumber, 2 );
-        }
-
-        // check VAT number format
-        if( ! $this->validateFormat( $countryCode . $vatNumber ) ) {
-            return false;
-        }
+        $country = substr( $vatNumber, 0, 2 );
+        $number = substr( $vatNumber, 2 );
 
         // call VIES VAT Soap API
         try {
             $response = $this->client->checkVat(
                 array(
-                    'countryCode' => $countryCode,
-                    'vatNumber' => $vatNumber
+                    'countryCode' => $country,
+                    'vatNumber' => $number
                 )
             );
         } catch( SoapFault $e ) {
             throw new Exception( 'VAT check is currently unavailable.', $e->getCode() );
         }
 
-        return !! $response->valid;
+        return (bool) $response->valid;
     }
 
     /**
-     * @param string $country
+     * Validates a VAT number using format + existence check.
      *
-     * @return string
+     * @param string $vatNumber Either the full VAT number (incl. country) or just the part after the country code.
+     *
+     * @return boolean
      */
-    protected function fixCountryCode( $country ) {
-        static $exceptions = array(
-            'GR' => 'EL',
-            'UK' => 'GB',
-        );
-
-        if( isset( $exceptions[$country] ) ) {
-            return $exceptions[$country];
-        }
-
-        return $country;
+    public function validate( $vatNumber ) {
+       return $this->validateFormat( $vatNumber ) && $this->validateExistence( $vatNumber );
     }
 
 

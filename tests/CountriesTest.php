@@ -1,0 +1,35 @@
+<?php
+
+namespace DvK\Tests\Laravel\Vat;
+
+use DvK\Laravel\Vat\Countries;
+
+use PHPUnit_Framework_TestCase;
+
+/**
+ * Class CountriesTest
+ * @package DvK\Tests\Laravel\Vat
+ *
+ */
+class CountriesTest extends PHPUnit_Framework_TestCase
+{
+
+    public function test_name() {
+        $countries = new Countries();
+        self::assertEquals( 'United States', $countries->name('US'));
+    }
+
+    public function test_inEurope() {
+        $countries = new Countries();
+
+        $invalid = [ 'US', '', 'NE', 'JP', 'RU' ];
+        foreach( $invalid as $country ) {
+            self::assertFalse( $countries->inEurope( $country ) );
+        }
+
+        $valid = [ 'NL', 'nl', 'GB', 'GR', 'BE' ];
+        foreach( $valid as $country ) {
+            self::assertTrue( $countries->inEurope( $country ) );
+        }
+    }
+}

@@ -6,15 +6,17 @@ Laravel VAT
 
 Laravel VAT is a simple Laravel library which helps you in dealing with European VAT rules. It helps you...
 
-- Grab (current) VAT rates for any European member state
-- Validate VAT numbers
+- Grab up-to-date VAT rates for any European member state
+- Validate VAT numbers (by format or existence)
+- Work with ISO 3166-1 alpha-2 country codes and determine whether they're part of the EU.
+- Geolocate IP addresses
 
 The library uses jsonvat.com to obtain its data for the VAT rates. Full details can be seen [here](https://github.com/adamcooke/vat-rates).
 For VAT number validation, this uses the [VIES VAT number validation](http://ec.europa.eu/taxation_customs/vies/).
 
 ## Installation
 
-Either [PHP](https://php.net) 5.5+ or [HHVM](http://hhvm.com) 3.6+ are required. For VAT number validation, the PHP SOAP extension is required as well.
+Either [PHP](https://php.net) 5.6+ or [HHVM](http://hhvm.com) 3.6+ are required. For VAT number validation, the PHP SOAP extension is required as well.
 
 To get the latest version of Laravel VAT, simply require the project using [Composer](https://getcomposer.org):
 
@@ -30,6 +32,8 @@ You can register facades in the `aliases` key of your `config/app.php` file if y
 
 * `'VatRates' => 'DvK\Laravel\Vat\Facades\Rates'`
 * `'VatValidator' => 'DvK\Laravel\Vat\Facades\Validator'`
+* `'Countries' => 'DvK\Laravel\Vat\Facades\Countries'`
+
 
 ## Usage
 
@@ -38,6 +42,7 @@ If you registered the facades then using an instance of the classes is as easy a
 ```php
 use DvK\Laravel\Vat\Facades\Rates;
 use DvK\Laravel\Vat\Facades\Validator;
+use DvK\Laravel\Vat\Facades\Countries;
 
 Rates::country( 'NL' ); // 21
 Rates::country( 'NL', 'reduced' ); // 6
@@ -48,7 +53,11 @@ Validator::validateFormat('NL203458239B01'); // true (checks just format)
 Validator::validate('NL203458239B01'); // false (checks format + existence)
 Validator::validate('NL203458239B01', 'GB'); // false (checks format + existence + country match)
 
-Validator::isEuCountry('NL'); // true
+Countries::inEurope('NL'); // true
+Countries::name('NL') // Netherlands
+Countries::all(); // array of country codes + names
+Countries::europe(); array of EU country codes + names
+Countries::ip('8.8.8.8'); // US
 ```
 
 If you'd prefer to use dependency injection, you can easily inject the class like this.

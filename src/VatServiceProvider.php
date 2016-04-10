@@ -30,6 +30,10 @@ class VatServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton( Countries::class, function (Container $app) {
+            return new Countries();
+        });
+
         $this->app->singleton( Validator::class, function (Container $app) {
            return new Validator();
         });
@@ -50,8 +54,9 @@ class VatServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'DvK\Laravel\Vat\Validator',
-            'DvK\Laravel\Vat\Rates',
+            Validator::class,
+            Rates::class,
+            Countries::class,
         ];
     }
 }
