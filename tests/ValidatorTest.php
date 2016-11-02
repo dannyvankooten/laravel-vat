@@ -89,10 +89,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             'SE12345678901',
             'SI1234567',
             'SK123456789',
+            'fooGB999999973', // valid VAT number but with string prefix
         ];
 
         foreach( $invalid as $format ) {
-            self::assertFalse( $validator->validateFormat( $format ), "{$format} passed validation, but shouldn't." );
+            $isValid = $validator->validateFormat( $format );
+            self::assertFalse( $isValid, "{$format} passed validation, but shouldn't." );
         }
     }
 

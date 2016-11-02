@@ -74,7 +74,8 @@ class Validator {
             return false;
         }
 
-        return preg_match( '/' . self::$patterns[$country] . '$/', $number ) > 0;
+        $matches = preg_match( '/^' . self::$patterns[$country] . '$/', $number ) > 0;
+        return $matches;
     }
 
     /**
