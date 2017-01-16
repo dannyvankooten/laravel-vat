@@ -4,7 +4,7 @@ Laravel VAT
 <a href="https://travis-ci.org/dannyvankooten/laravel-vat"><img src="https://img.shields.io/travis/dannyvankooten/laravel-vat/master.svg?style=flat-square" alt="Build Status"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 
-Laravel VAT is a simple Laravel library which helps you in dealing with European VAT rules. For a standalone version of this package that does not depend on Laravel, check out [vat.php](https://packagist.org/packages/dannyvankooten/vat.php).
+Laravel VAT is a simple Laravel library which helps you in dealing with European VAT rules. For a standalone version of this package that does not depend on Laravel, check out [vat.php](https://github.com/dannyvankooten/vat.php).
 
 - Grab up-to-date VAT rates for any European member state
 - Validate VAT numbers (by format or existence)
