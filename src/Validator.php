@@ -118,5 +118,7 @@ class Validator {
        return $this->validateFormat( $vatNumber ) && $this->validateExistence( $vatNumber );
     }
 
-
+    public function getPatterns() {
+        return $this->patterns;
+    }
 }
