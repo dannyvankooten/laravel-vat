@@ -47,7 +47,7 @@ class Client {
         return (bool) $response->valid;
     }
 
-    public function getVatHolderInfo($countryCode, $vatNumber){
+    public function getVatHolderInfo($countryCode, $vatNumber, $throwExc = false){
         try {
             $response = $this->client->checkVat(
                 array(
@@ -56,6 +56,9 @@ class Client {
                 )
             );        
         } catch( SoapFault $e ) {
+            if (! $throwExc)
+                return null;
+                
             throw new ViesException( $e->getMessage(), $e->getCode() );
         }
 
