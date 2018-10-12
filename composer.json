@@ -28,5 +28,17 @@
   "config": {
     "preferred-install": "dist"
   },
-  "prefer-stable": true
+  "prefer-stable": true,
+  "extra": {
+        "laravel": {
+            "providers": [
+                "DvK\Laravel\Vat\VatServiceProvider"
+            ],
+            "aliases": {
+                "VatRates": "DvK\Laravel\Vat\Facades\Rates",
+                "VatValidator": "DvK\Laravel\Vat\Facades\Validator",
+                "Countries": "DvK\Laravel\Vat\Facades\Countries"
+            }
+        }
+    }
 }
