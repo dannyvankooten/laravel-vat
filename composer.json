@@ -32,12 +32,12 @@
   "extra": {
         "laravel": {
             "providers": [
-                "DvK\Laravel\Vat\VatServiceProvider"
+                "DvK\\Laravel\\Vat\\VatServiceProvider"
             ],
             "aliases": {
-                "VatRates": "DvK\Laravel\Vat\Facades\Rates",
-                "VatValidator": "DvK\Laravel\Vat\Facades\Validator",
-                "Countries": "DvK\Laravel\Vat\Facades\Countries"
+                "VatRates": "DvK\\Laravel\\Vat\\Facades\\Rates",
+                "VatValidator": "DvK\\Laravel\\Vat\\Facades\\Validator",
+                "Countries": "DvK\\Laravel\\Vat\\Facades\\Countries"
             }
         }
     }
