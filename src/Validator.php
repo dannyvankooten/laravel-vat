@@ -9,12 +9,12 @@ namespace DvK\Laravel\Vat;
 class Validator {
 
     /**
-     * Regular expression patterns per country code
+     * Regular expression patterns per EU country code
      *
      * @var array
      * @link http://ec.europa.eu/taxation_customs/vies/faq.html?locale=lt#item_11
      */
-    protected static $patterns = array(
+    protected static $eu_patterns = array(
         'AT' => 'U[A-Z\d]{8}',
         'BE' => '(0\d{9}|\d{10})',
         'BG' => '\d{9,10}',
@@ -46,11 +46,25 @@ class Validator {
     );
 
     /**
+     * Regular expression patterns per NON EU country code
+     *
+     * @var array
+     * @link https://en.wikipedia.org/wiki/VAT_identification_number
+     */
+    protected static $non_eu_patterns = array(
+        'CH' => 'E\d{9}'
+    );
+
+    protected $patterns;
+
+    /**
      * VatValidator constructor.
      *
      * @param Vies\Client $client        (optional)
      */
     public function __construct( Vies\Client $client = null ) {
+        $this->patterns = array_merge(self::$eu_patterns,self::$non_eu_patterns);
+        
         $this->client = $client;
 
         if( ! $this->client ) {
@@ -70,11 +84,11 @@ class Validator {
         $country = substr( $vatNumber, 0, 2 );
         $number = substr( $vatNumber, 2 );
 
-        if( ! isset( self::$patterns[$country]) ) {
+        if( ! isset( $this->patterns[$country]) ) {
             return false;
         }
 
-        $matches = preg_match( '/^' . self::$patterns[$country] . '$/', $number ) > 0;
+        $matches = preg_match( '/^' . $this->patterns[$country] . '$/', $number ) > 0;
         return $matches;
     }
 
@@ -104,5 +118,7 @@ class Validator {
        return $this->validateFormat( $vatNumber ) && $this->validateExistence( $vatNumber );
     }
 
-
+    public function getPatterns() {
+        return $this->patterns;
+    }
 }

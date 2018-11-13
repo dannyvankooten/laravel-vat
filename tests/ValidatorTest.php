@@ -51,6 +51,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             'SE123456789012',
             'SI12345678',
             'SK1234567890',
+            'CHE112233445',
         ];
 
         $validator = new Validator();
@@ -90,6 +91,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             'SI1234567',
             'SK123456789',
             'fooGB999999973', // valid VAT number but with string prefix
+            'CHE11223344',
         ];
 
         foreach( $invalid as $format ) {

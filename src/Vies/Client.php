@@ -43,7 +43,25 @@ class Client {
         } catch( SoapFault $e ) {
             throw new ViesException( $e->getMessage(), $e->getCode() );
         }
-
+        
         return (bool) $response->valid;
+    }
+
+    public function getVatHolderInfo($countryCode, $vatNumber, $throwExc = false){
+        try {
+            $response = $this->client->checkVat(
+                array(
+                    'countryCode' => $countryCode,
+                    'vatNumber' => $vatNumber
+                )
+            );        
+        } catch( SoapFault $e ) {
+            if (! $throwExc)
+                return null;
+                
+            throw new ViesException( $e->getMessage(), $e->getCode() );
+        }
+
+        return $response;
     }
 }
