@@ -24,11 +24,6 @@
       "DvK\\Laravel\\Vat\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "DvK\\Tests\\Laravel\\Vat\\": "tests/"
-    }
-  },
   "config": {
     "preferred-install": "dist"
   },

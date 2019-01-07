@@ -1,6 +1,6 @@
 <?php
 
-namespace DvK\Tests\LaravelVat;
+namespace DvK\Tests\LaravelVat\Rules;
 
 use DvK\Laravel\Vat\Rules\Country;
 use Orchestra\Testbench\TestCase;
