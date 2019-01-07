@@ -32,8 +32,9 @@ use DvK\Laravel\Vat\Facades\Rates;
 use DvK\Laravel\Vat\Facades\Validator;
 use DvK\Laravel\Vat\Facades\Countries;
 
-Rates::country( 'NL' ); // 21
-Rates::country( 'NL', 'reduced' ); // 6
+Rates::country('NL'); // 21
+Rates::country('NL', 'reduced'); // 6
+Rates::country('NL', 'reduced', new \DateTime('2005-01-01')); // 19
 Rates::all(); // array in country code => rates format
 
 Validator::validate('NL50123'); // false
@@ -52,4 +53,4 @@ By default, VAT rates are cached for 24 hours using the default cache driver.
 
 ## License
 
-laravel-vat is licensed under [The MIT License (MIT)](LICENSE).
+[MIT licensed](LICENSE).
