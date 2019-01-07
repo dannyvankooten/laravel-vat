@@ -4,11 +4,13 @@ namespace DvK\Laravel\Vat;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator as RequestValidator;
+use Illuminate\Support\Facades\Validator as LaravelValidator;
+use DvK\Laravel\Vat\Facades\Validator as VatValidator;
+use DvK\Laravel\Vat\Rules;
 
-use DvK\Laravel\Vat\Vies\ViesException;
-use DvK\Laravel\Vat\Facades\Validator as ValidatorFacade;
-
+use DvK\Vat\Countries;
+use DvK\Vat\Rates\Rates;
+use DvK\Vat\Validator;
 
 class VatServiceProvider extends ServiceProvider
 {
@@ -19,22 +21,20 @@ class VatServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         /**
          * Register the "vat_number" validation rule.
-         *
-         * When the VIES VAT validation fails, this will just look at the number format.
-         * This can result in invalid VAT numbers being marked as true.
-         * With the VIES VAT number API being down an awful lot lately, we feel it is more important to get the purchase through.
          */
-        RequestValidator::extend('vat_number', function($attribute, $value, $parameters, $validator ) {
-            try {
-                $valid = ValidatorFacade::validate( $value );
-            }  catch( ViesException $e ) {
-                return true;
-            }
+        LaravelValidator::extend('vat_number', function ($attribute, $value, $parameters, $validator) {
+            $rule = new Rules\VatNumber;
+            return $rule->passes($attribute, $value);
+        });
 
-            return $valid;
+         /**
+         * Register the "country_code" validation rule.
+         */
+        LaravelValidator::extend('country_code', function ($attribute, $value, $parameters, $validator) {
+            $rule = new Rules\Country;
+            return $rule->passes($attribute, $value);
         });
     }
 
@@ -56,7 +56,7 @@ class VatServiceProvider extends ServiceProvider
         $this->app->singleton( Rates::class, function (Container $app) {
             $defaultCacheDriver = $app['cache']->getDefaultDriver();
             $cacheDriver = $app['cache']->driver( $defaultCacheDriver );
-            return new Rates( $cacheDriver );
+            return new Rates( null, $cacheDriver );
         });
     }
 
