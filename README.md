@@ -4,7 +4,9 @@ Laravel VAT
 <a href="https://travis-ci.org/dannyvankooten/laravel-vat"><img src="https://img.shields.io/travis/dannyvankooten/laravel-vat/master.svg?style=flat-square" alt="Build Status"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 
-laravel-vat is a package that contains the Laravel related wiring code for [vat.php](https://github.com/dannyvankooten/vat.php), helping you deal with VAT legislation for businesses based in Europe.
+> See [ibericode/vat-bundle](https://github.com/ibericode/vat-bundle) for a Symfony version of this package.
+
+laravel-vat is a package that contains the Laravel related wiring code for [ibericode/vat](https://github.com/ibericode/vat), helping you deal with VAT legislation for businesses based in the EU.
 
 - Fetch (historical) VAT rates for any European member state using [jsonvat.com](https://github.com/adamcooke/vat-rates)
 - Validate VAT numbers (by format, [existence](http://ec.europa.eu/taxation_customs/vies/) or both)
@@ -14,10 +16,10 @@ laravel-vat is a package that contains the Laravel related wiring code for [vat.
 
 ## Installation
 
-You can install this package via Composer:
+You can install this package via [Composer](https://getcomposer.org/):
 
 ```bash
-$ composer require dannyvankooten/laravel-vat
+composer require dannyvankooten/laravel-vat
 ```
 
 The package will automatically register itself.
@@ -25,12 +27,12 @@ The package will automatically register itself.
 
 ## Usage
 
-Check out the [vat.php README](https://github.com/dannyvankooten/vat.php) for general usage of this package.
+Check out the [ibericode/vat README](https://github.com/ibericode/vat) for general usage of this package.
 
 
 #### Facades
 
-Using facades, retrieving an instance of the classes provided by vat.php is easy:
+You can use facades to retrieve an instance of the classes provided by ibericode/vat.
 
 ```php
 use DvK\Laravel\Vat\Facades\Rates;
