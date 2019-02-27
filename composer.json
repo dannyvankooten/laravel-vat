@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": ">=7.1",
-    "ibericode/vat": "^2.0",
+    "ibericode/vat": "^1.2",
     "illuminate/contracts": "5.5.*|5.6.*|5.7.*|5.8.*",
     "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*"
   },
