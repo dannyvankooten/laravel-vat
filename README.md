@@ -76,7 +76,7 @@ use Illuminate\Http\Request;
 
 class Controller {
 
-    public function foo(Request $request) 
+    public function foo(Request $request)
     {
         $request->validate([
             'vat_number_field' => ['vat_number'],
@@ -94,13 +94,24 @@ use DvK\Laravel\Vat\Rules;
 
 class Controller {
 
-    public function foo(Request $request) 
+    public function foo(Request $request)
     {
         $request->validate([
             'vat_number_field' => [ new Rules\VatNumber() ],
             'country_code_field' => [ new Rules\Country() ],
         ]);
     }
+}
+```
+
+## Localization
+You can translate the validation error message by [Using Translation Strings As Keys](https://laravel.com/docs/6.x/localization#using-translation-strings-as-keys) for the following strings:
+
+`resources/lang/de.json`
+```
+{
+    "The :attribute must be a valid VAT number.": "Your translation for the VatNumber Rule",
+    "The :attribute must be a valid country.": "Your translation for the Country Rule"
 }
 ```
 
