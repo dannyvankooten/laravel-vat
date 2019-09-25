@@ -27,6 +27,6 @@ class Country implements Rule
      */
     public function message()
     {
-        return 'The :attribute must be a valid country.';
+        return __('The :attribute must be a valid country.');
     }
 }

@@ -26,6 +26,6 @@ class VatNumber implements Rule
      */
     public function message()
     {
-        return 'The :attribute must be a valid VAT number.';
+        return __('The :attribute must be a valid VAT number.');
     }
 }
