@@ -39,20 +39,40 @@ use DvK\Laravel\Vat\Facades\Rates;
 use DvK\Laravel\Vat\Facades\Validator;
 use DvK\Laravel\Vat\Facades\Countries;
 
-Rates::country('NL'); // 21
-Rates::country('NL', 'reduced'); // 6
-Rates::country('NL', 'reduced', new \DateTime('2005-01-01')); // 19
-Rates::all(); // array in country code => rates format
+// Get current standard VAT rate for a country
+Rates::country('NL'); // 21.00
 
+// Get reduced VAT rate
+Rates::country('NL', 'reduced'); // 6.00
+
+// Get reduced VAT rate on a given Date
+Rates::country('NL', 'reduced', new \DateTime('2005-01-01')); // 19.00
+
+// Get an array of rates in country code => rates format
+Rates::all(); 
+
+// Validate a VAT number by both format and existence
 Validator::validate('NL50123'); // false
-Validator::validateFormat('NL203458239B01'); // true (checks format)
-Validator::validateExistence('NL203458239B01') // false (checks existence)
-Validator::validate('NL203458239B01'); // false (checks format + existence)
 
+// Validate VAT number by format only
+Validator::validateFormat('NL203458239B01'); // true
+
+// Validate VAT number by existence (uses a remote HTTP service)
+Validator::validateExistence('NL203458239B01') // false
+
+// Get array of ISO-3316 country codes and country names
 Countries::all(); // array of country codes + names
+
+// Get name of country by ISO-3316 code
 Countries::name('NL') // Netherlands
+
+// Get array of EU country codes + names
 Countries::europe(); // array of EU country codes + names
+
+// Check if ISO-3316 code is in EU
 Countries::inEurope('NL'); // true
+
+// Get ISO-3316 code by IP address geo-location
 Countries::ip('8.8.8.8'); // US
 ```
 
