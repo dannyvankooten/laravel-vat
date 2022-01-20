@@ -8,7 +8,7 @@ Laravel VAT
 
 laravel-vat is a package that contains the Laravel related wiring code for [ibericode/vat](https://github.com/ibericode/vat/tree/1.2.1), helping you deal with VAT legislation for businesses based in the EU.
 
-- Fetch (historical) VAT rates for any European member state using [jsonvat.com](https://github.com/adamcooke/vat-rates)
+- Fetch (historical) VAT rates for any EU member state using [ibericode/vat-rates](https://github.com/ibericode/vat-rates).
 - Validate VAT numbers (by format, [existence](http://ec.europa.eu/taxation_customs/vies/) or both)
 - Validate ISO-3316 alpha-2 country codes
 - Determine whether a country is part of the EU
