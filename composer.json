@@ -1,5 +1,5 @@
 {
-  "name": "dannyvankooten/laravel-vat",
+  "name": "blendisnl/laravel-vat",
   "description": "VAT library for Laravel",
   "keywords": ["laravel", "vat"],
   "license": "MIT",
