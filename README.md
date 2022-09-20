@@ -1,3 +1,5 @@
+> **HEADS UP** I suggest using [ibericode/vat](https://github.com/ibericode/vat) directly until #22 is tackled. Working with Laravel is not on my priority list so it would require someone else to send in a PR.
+
 Laravel VAT
 ================
 
