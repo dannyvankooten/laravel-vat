@@ -8,7 +8,7 @@ class Countries extends Facade {
 
     protected static function getFacadeAccessor() 
     { 
-        return \DvK\Vat\Countries::class;
+        return \Ibericode\Vat\Countries::class;
     }
 
 }
