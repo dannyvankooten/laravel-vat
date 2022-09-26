@@ -7,7 +7,7 @@ use DvK\Laravel\Vat\Facades\Rates as RatesFacade;
 use DvK\Laravel\Vat\Facades\Validator as ValidatorFacade; 
 
 use Ibericode\Vat\Countries;
-use Ibericode\Vat\Rates\Rates;
+use Ibericode\Vat\Rates;
 use Ibericode\Vat\Validator;
 
 use Orchestra\Testbench\TestCase;
