@@ -16,16 +16,16 @@ class ServiceProviderTest extends TestCase
 {
     public function testCountries() 
     {
-        self::assertEquals((new Countries())->all(), CountriesFacade::all());
+        self::assertEquals(new Countries(), new CountriesFacade);
     }
 
     public function testRates() 
     {
-        self::assertEquals((new Rates())->all(), RatesFacade::all());
+        self::assertEquals((new Rates())->getRateForCountry('NL'), RatesFacade::getRateForCountry('NL'));
     }
 
     public function testValidator() 
     {
-        self::assertEquals((new Validator())->validateFormat('foobar'), ValidatorFacade::validateFormat('foobar'));
+        self::assertEquals((new Validator())->validateVatNumberFormat('foobar'), ValidatorFacade::validateVatNumberFormat('foobar'));
     }
 }
