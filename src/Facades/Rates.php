@@ -8,7 +8,7 @@ class Rates extends Facade {
 
     protected static function getFacadeAccessor() 
     { 
-        return \Ibericode\Vat\Rates\Rates::class;
+        return \Ibericode\Vat\Rates::class;
     }
 
 }
