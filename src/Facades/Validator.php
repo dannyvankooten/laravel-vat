@@ -8,7 +8,7 @@ class Validator extends Facade {
 
     protected static function getFacadeAccessor() 
     { 
-        return \DvK\Vat\Validator::class;
+        return \Ibericode\Vat\Validator::class;
     }
 
 }

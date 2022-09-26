@@ -16,7 +16,7 @@ class VatNumber implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Validator::validate($value);
+        return Validator::validateVatNumber($value);
     }
 
     /**
