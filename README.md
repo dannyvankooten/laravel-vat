@@ -40,25 +40,20 @@ use DvK\Laravel\Vat\Facades\Validator;
 use DvK\Laravel\Vat\Facades\Countries;
 
 // Get current standard VAT rate for a country
-Rates::country('NL'); // 21.00
+Rates::getRateForCountry('NL'); // 21
+Rates::getRateForCountry('NL', 'standard'); // 21
 
 // Get reduced VAT rate
-Rates::country('NL', 'reduced'); // 6.00
+Rates::getRateForCountry('NL', 'reduced'); // 9
 
 // Get reduced VAT rate on a given Date
-Rates::country('NL', 'reduced', new \DateTime('2005-01-01')); // 19.00
-
-// Get an array of rates in country code => rates format
-Rates::all(); 
+Rates::getRateForCountryOnDate('NL', new \DateTime('2010-01-01'), 'standard'); // 19.00
 
 // Validate a VAT number by both format and existence
-Validator::validate('NL50123'); // false
+Validator::validateVatNumberFormat('NL203458239B01'); // true (checks format)
 
 // Validate VAT number by format only
-Validator::validateFormat('NL203458239B01'); // true
-
-// Validate VAT number by existence (uses a remote HTTP service)
-Validator::validateExistence('NL203458239B01') // false
+Validator::validateVatNumber('NL203458239B01'); // false (checks format + existence)
 
 // Get array of ISO-3316 country codes and country names
 Countries::all(); // array of country codes + names
