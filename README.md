@@ -56,19 +56,19 @@ Validator::validateVatNumberFormat('NL203458239B01'); // true (checks format)
 Validator::validateVatNumber('NL203458239B01'); // false (checks format + existence)
 
 // Get array of ISO-3316 country codes and country names
-Countries::all(); // array of country codes + names
+$countries = new Countries();
 
-// Get name of country by ISO-3316 code
-Countries::name('NL') // Netherlands
+// access country name using array access
+echo $countries['NL']; // Netherlands
 
-// Get array of EU country codes + names
-Countries::europe(); // array of EU country codes + names
+// loop over countries
+foreach ($countries as $code => $name) {
+    // ...
+}
 
-// Check if ISO-3316 code is in EU
-Countries::inEurope('NL'); // true
-
-// Get ISO-3316 code by IP address geo-location
-Countries::ip('8.8.8.8'); // US
+// check if country is in EU
+$countries->isCountryCodeInEU('NL'); // true
+$countries->isCountryCodeInEU('US'); // false
 ```
 
 By default, VAT rates are cached for 24 hours using the default cache driver.
